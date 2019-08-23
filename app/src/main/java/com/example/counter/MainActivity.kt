@@ -35,16 +35,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun controlStopwatch(v: View) {
-        viewModel.getStopwatchValue().observe(this, Observer {
-            fab_stopwatch.text = it
-        })
-        viewModel.isStopwatchStarted().observe(this, Observer { started ->
-            if (started) {
-                fab_stopwatch.icon = getDrawable(R.drawable.ic_stop_black_24dp)
-            } else {
-                fab_stopwatch.icon = getDrawable(R.drawable.ic_play_arrow_black_24dp)
-            }
-        })
-        viewModel.controlStopwatch()
+        if (fab_stopwatch.icon == getDrawable(R.drawable.ic_replay_black_24dp)) {
+            // Stopwatch has been stopped or never started
+            fab_stopwatch.icon = getDrawable(R.drawable.ic_play_arrow_black_24dp)
+            fab_stopwatch.text = getString(R.string.action_start_stopwatch)
+        } else {
+            viewModel.getStopwatchValue().observe(this, Observer {
+                fab_stopwatch.text = it
+            })
+            viewModel.isStopwatchStarted().observe(this, Observer { started ->
+                if (started) {
+                    fab_stopwatch.icon = getDrawable(R.drawable.ic_stop_black_24dp)
+                } else {
+                    fab_stopwatch.icon = getDrawable(R.drawable.ic_replay_black_24dp)
+                }
+            })
+            viewModel.controlStopwatch()
+        }
     }
 }
