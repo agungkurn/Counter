@@ -44,8 +44,6 @@ class MainViewModel : ViewModel() {
         cal.set(Calendar.SECOND, 0)
         cal.set(Calendar.MILLISECOND, 0)
 
-//        var handler: Handler? = Handler(Looper.getMainLooper())
-
         Log.d(MainActivity.TAG, "Stopwatch started?: ${isStopwatchStarted.value}")
 
         stopwatchCounter = viewModelScope.launch {
@@ -63,7 +61,6 @@ class MainViewModel : ViewModel() {
             stopwatchCounter.start()
         } else {
             isStopwatchStarted.value = false
-            stopwatchCounter.cancel()
         }
     }
 
